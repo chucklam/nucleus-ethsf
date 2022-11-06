@@ -7,12 +7,15 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { Network } from "./Network";
+import LendingPools from "./LendingPools";
 
 import injectedModule from "@web3-onboard/injected-wallets";
-import { init } from "@web3-onboard/react";
+import { init, useConnectWallet } from "@web3-onboard/react";
 
 const injected: any = injectedModule();
 init({
@@ -44,6 +47,8 @@ init({
 const theme = createTheme();
 
 export default function Album() {
+  const [{ wallet, connecting }, connect, disconnect] = useConnectWallet();
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -88,6 +93,15 @@ export default function Album() {
           </Container>
         </Box>
         {/* End hero unit */}
+        {wallet &&
+          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+            <Grid item xs={12}>
+              <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                <LendingPools />
+              </Paper>
+            </Grid>
+          </Container>
+        }
       </main>
     </ThemeProvider>
   );
