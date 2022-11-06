@@ -8,6 +8,8 @@ import Title from './Title';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 
+import DepositDialog from './DepositDialog';
+
 const rows = [
   {
     name: 'CTSI',
@@ -43,13 +45,15 @@ const rows = [
   },
 ];
 
-const buttons = [
-  <Button key="deposit">Deposit</Button>,
-  <Button key="withdraw">Withdraw</Button>,
-  <Button key="borrow">Borrow</Button>,
-];
-
 export default function Orders() {
+  const [isDepositDialogOpen, setIsDepositDialogOpen] = React.useState(false);
+
+  const buttons = [
+    <Button key="deposit" onClick={() => setIsDepositDialogOpen(true)}>Deposit</Button>,
+    <Button key="withdraw">Withdraw</Button>,
+    <Button key="borrow">Borrow</Button>,
+  ];
+
   return (
     <React.Fragment>
       <Title>Available Lending Pools</Title>
@@ -86,6 +90,7 @@ export default function Orders() {
           ))}
         </TableBody>
       </Table>
+      <DepositDialog open={isDepositDialogOpen} onClose={() => setIsDepositDialogOpen(false)} />
     </React.Fragment>
   );
 }
