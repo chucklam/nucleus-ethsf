@@ -1,63 +1,36 @@
 import * as React from 'react';
-import Link from '@mui/material/Link';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Title from './Title';
-
-// Generate Order Data
-function createData(
-  id: number,
-  date: string,
-  name: string,
-  shipTo: string,
-  paymentMethod: string,
-  amount: number,
-) {
-  return { id, date, name, shipTo, paymentMethod, amount };
-}
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
 
 const rows = [
-  createData(
-    0,
-    '16 Mar, 2019',
-    'Elvis Presley',
-    'Tupelo, MS',
-    'VISA ⠀•••• 3719',
-    312.44,
-  ),
-  createData(
-    1,
-    '16 Mar, 2019',
-    'Paul McCartney',
-    'London, UK',
-    'VISA ⠀•••• 2574',
-    866.99,
-  ),
-  createData(2, '16 Mar, 2019', 'Tom Scholz', 'Boston, MA', 'MC ⠀•••• 1253', 100.81),
-  createData(
-    3,
-    '16 Mar, 2019',
-    'Michael Jackson',
-    'Gary, IN',
-    'AMEX ⠀•••• 2000',
-    654.39,
-  ),
-  createData(
-    4,
-    '15 Mar, 2019',
-    'Bruce Springsteen',
-    'Long Branch, NJ',
-    'VISA ⠀•••• 5919',
-    212.79,
-  ),
+  {
+    name: 'BNB',
+    apy: '11%',
+    supply: '10.96M',
+    borrowed: '1.08M',
+    utilization: '9.08%',
+    balance: '0.00',
+  },
+  {
+    name: 'USDT',
+    apy: '8%',
+    supply: '200.6M',
+    borrowed: '10.08M',
+    utilization: '8.8%',
+    balance: '0.00',
+  },
 ];
 
-function preventDefault(event: React.MouseEvent) {
-  event.preventDefault();
-}
+const buttons = [
+  <Button key="deposit">Deposit</Button>,
+  <Button key="withdraw">Withdraw</Button>,
+];
 
 export default function Orders() {
   return (
@@ -66,28 +39,36 @@ export default function Orders() {
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell>Date</TableCell>
-            <TableCell>Name</TableCell>
-            <TableCell>Ship To</TableCell>
-            <TableCell>Payment Method</TableCell>
-            <TableCell align="right">Sale Amount</TableCell>
+            <TableCell></TableCell>
+            <TableCell>APY</TableCell>
+            <TableCell>Total Supply</TableCell>
+            <TableCell>Total Borrowed</TableCell>
+            <TableCell>Utilization</TableCell>
+            <TableCell align="right">Your Balance</TableCell>
+            <TableCell></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell>{row.date}</TableCell>
+            <TableRow key={row.name}>
               <TableCell>{row.name}</TableCell>
-              <TableCell>{row.shipTo}</TableCell>
-              <TableCell>{row.paymentMethod}</TableCell>
-              <TableCell align="right">{`$${row.amount}`}</TableCell>
+              <TableCell>{row.apy}</TableCell>
+              <TableCell>{row.supply}</TableCell>
+              <TableCell>{row.borrowed}</TableCell>
+              <TableCell>{row.utilization}</TableCell>
+              <TableCell align="right">${row.balance}</TableCell>
+              <TableCell>
+                <ButtonGroup
+                  orientation="vertical"
+                  aria-label="vertical outlined button group"
+                >
+                  {buttons}
+                </ButtonGroup>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-      <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
-        See more orders
-      </Link>
     </React.Fragment>
   );
 }
